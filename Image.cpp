@@ -5,7 +5,7 @@ using namespace cv;
 using namespace std;
 
 // functions to perform tasks
-string loadImage(){
+Mat loadImage(){
     string str;
     getline(cin, str);
     Mat img = imread("path/to/image", IMREAD_COLOR);
@@ -13,7 +13,6 @@ string loadImage(){
     // Error handling: Check if the image was loaded successfully
     if (img.empty()) {
         cout << "Image file not found or couldn't be loaded." << endl;
-        return "";
     }
 
     // Show the image inside a window with the specified name
@@ -22,21 +21,39 @@ string loadImage(){
     // Wait for a keystroke in the window
     waitKey(0);
 
-    return str;
+    return img;
 }
-void filterImage(string address){
+void filterImage(Mat address){
     
 }
-void colorImage(string address){
+void colorImage(Mat address){
     
 }
-void cropImage(string address){
+void cropImage(Mat address){
     
 }
-void resizeImage(string address){
+void resizeImage(Mat address){
     
 }
-void saveImage(string address){
+void saveImage(Mat address){
+    cout<< "Enter the location where you want your edited image to be saved. \n example: path/to/save/MyImage.jpg\n ";
+    string str;
+    getline(cin,str);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    bool check = imwrite(str, address);
+
+    if (check) {
+        cout << "Successfully saved the modified image." << endl;
+    } else {
+        cout << "Failed to save the image." << endl;
+    }
+
+    // Display the modified image
+    imshow("Modified Image", address);
+    waitKey(0);
+
+    return ;
     
 }
 int main(){
@@ -58,7 +75,7 @@ int main(){
         cin>> choice;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-        string address;
+        Mat address;
 
         //Calling functions according to the choice made.
         switch (choice){
