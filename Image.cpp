@@ -7,8 +7,9 @@ using namespace std;
 // functions to perform tasks
 Mat loadImage(){
     string str;
+    cout<< "Enter the path to  your image.\n";
     getline(cin, str);
-    Mat img = imread("path/to/image", IMREAD_COLOR);
+    Mat img = imread(str, IMREAD_COLOR);
 
     // Error handling: Check if the image was loaded successfully
     if (img.empty()) {
@@ -23,19 +24,19 @@ Mat loadImage(){
 
     return img;
 }
-void filterImage(Mat address){
+void FilterImage(Mat& address){
     
 }
-void colorImage(Mat address){
+void colorImage(Mat& address){
     
 }
-void cropImage(Mat address){
+void cropImage(Mat& address){
     
 }
-void resizeImage(Mat address){
+void resizeImage(Mat& address){
     
 }
-void saveImage(Mat address){
+void saveImage(Mat& address){
     cout<< "Enter the location where you want your edited image to be saved. \n example: path/to/save/MyImage.jpg\n ";
     string str;
     getline(cin,str);
@@ -83,7 +84,7 @@ int main(){
                 address = loadImage();
                 break;
             case 2:
-                filterImage(address);
+                FilterImage(address);
                 break;
             case 3:
                 colorImage(address);
