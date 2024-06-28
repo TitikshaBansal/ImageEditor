@@ -31,10 +31,28 @@ void colorImage(Mat& address){
     
 }
 void cropImage(Mat& address){
-    
+    int startX, startY, width, height;
+    cout << "Enter the starting X-coordinate: ";
+    cin >> startX;
+    cout << "Enter the starting Y-coordinate: ";
+    cin >> startY;
+    cout << "Enter the width of the ROI: ";
+    cin >> width;
+    cout << "Enter the height of the ROI: ";
+    cin >> height;
+
+    // Crop the image
+    address = address(Rect(startX, startY, width, height));
 }
 void resizeImage(Mat& address){
-    
+    int newWidth, newHeight;
+    cout << "Enter the new width: ";
+    cin >> newWidth;
+    cout << "Enter the new height: ";
+    cin >> newHeight;
+
+    // Resize the image
+    resize(address, address, Size(newWidth, newHeight), INTER_LINEAR);
 }
 void saveImage(Mat& address){
     cout<< "Enter the location where you want your edited image to be saved. \n example: path/to/save/MyImage.jpg\n ";
@@ -59,7 +77,7 @@ void saveImage(Mat& address){
 }
 int main(){
     int perform=1;
-    while(perform=1){
+    while(perform == 1){
         // Displaying use all the functions available.
         // Each of these functions perform their task and display the image in the end.
         cout<<"\n \n Choose one option from the following:\n";
