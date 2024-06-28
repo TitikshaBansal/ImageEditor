@@ -1,5 +1,7 @@
 #include<bits/stdc++.h>
 #include <opencv2/opencv.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/highgui.hpp>
 
 using namespace cv;
 using namespace std;
@@ -39,7 +41,31 @@ void Sharp(Mat& address){
     waitKey(0);
 }
 void AdjustColor(Mat& address){
+    // Create a palette (user-defined color)
+    Mat palette(256, 1, CV_8UC3);
     
+    int r, g, b;
+    cout << "Enter RGB values for the desired color (0-255): ";
+    cin >> r >> g >> b;
+    for (int i = 0; i < 256; ++i) {
+        palette.at<Vec3b>(i, 0) = Vec3b(b, g, r);  // BGR order
+    }
+
+    // Convert the colored image to grayscale
+    Mat grayImage;
+    cvtColor(address, grayImage, COLOR_BGR2GRAY);
+
+    // Create a lookup table (LUT) based on the palette
+    Mat lut;
+    merge(&palette, 3, lut);
+
+    // Apply the LUT to the grayscale image
+    LUT(grayImage, lut, address);
+
+    // Display results
+    imshow("Color Adjusted", address);
+    waitKey(0);
+
 }
 void Brightness(Mat& address){
     
