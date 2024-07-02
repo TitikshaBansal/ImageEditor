@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include <iostream>
 #include <opencv2/opencv.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/highgui.hpp>
@@ -11,12 +11,17 @@ void Gray(Mat& address){
     cvtColor(address, address, COLOR_BGR2GRAY);
     imshow("Grayscale Image", address);
     waitKey(0);
+    destroyWindow("Grayscale Image");
 }
 void Blur(Mat& address){
     // Take input for kernel size (blur intensity)
     int kernelSize;
     cout << "Enter the kernel size (odd value): ";
     cin >> kernelSize;
+    if (kernelSize % 2 == 0) {
+        cout << "Kernel size must be an odd value. Please try again." << endl;
+        return;
+    }
 
     // Apply Gaussian blur
     GaussianBlur(address, address, Size(kernelSize, kernelSize), 0);
@@ -24,31 +29,32 @@ void Blur(Mat& address){
     // Display the blurred image
     imshow("Blurred Image", address);
     waitKey(0);
+    destroyWindow("Blurred Image");
 }
 void Sharp(Mat& address){
     double sharpenFactor;
-    std::cout << "Enter sharpening factor (0.0 to 1.0): ";
-    std::cin >> sharpenFactor;
+    cout << "Enter sharpening factor (0.0 to 1.0): ";
+    cin >> sharpenFactor;
 
     // Gaussian blur
     Mat blurred;
     GaussianBlur(address, blurred, Size(0, 0), 25);
-
     addWeighted(address, 1.0 + sharpenFactor, blurred, -sharpenFactor, 0, address);
 
     // Display results
     imshow("Sharpened", address);
     waitKey(0);
+    destroyWindow("Sharpened");
 }
 void AdjustColor(Mat& address){
     // Create a palette (user-defined color)
-    Mat palette(256, 1, CV_8UC3);
-    
     int r, g, b;
     cout << "Enter RGB values for the desired color (0-255): ";
     cin >> r >> g >> b;
+
+    Mat lut(1, 256, CV_8UC3);
     for (int i = 0; i < 256; ++i) {
-        palette.at<Vec3b>(i, 0) = Vec3b(b, g, r);  // BGR order
+        lut.at<Vec3b>(i) = Vec3b(b, g, r);  // BGR order
     }
 
     // Convert the colored image to grayscale
@@ -56,22 +62,39 @@ void AdjustColor(Mat& address){
     cvtColor(address, grayImage, COLOR_BGR2GRAY);
 
     // Create a lookup table (LUT) based on the palette
-    Mat lut;
-    merge(&palette, 3, lut);
+    Mat colorImage;
+    LUT(grayImage, lut, colorImage);
 
-    // Apply the LUT to the grayscale image
-    LUT(grayImage, lut, address);
-
-    // Display results
+    address = colorImage.clone();
     imshow("Color Adjusted", address);
     waitKey(0);
+    destroyWindow("Color Adjusted");
 
 }
 void Brightness(Mat& address){
-    
+    double alpha;
+    int beta;
+    cout << "Enter the alpha value [1.0-3.0]: ";
+    cin >> alpha;
+    cout << "Enter the beta value [0-100]: ";
+    cin >> beta;
+
+    address.convertTo(address, -1, alpha, beta);
+
+    imshow("Brightness Adjusted", address);
+    waitKey(0);
+    destroyWindow("Brightness Adjusted");
 }
 void Contrast(Mat& address){
-    
+    double alpha;
+    cout << "Enter the alpha value [1.0-3.0]: ";
+    cin >> alpha;
+
+    address.convertTo(address, -1, alpha, 0);
+
+    imshow("Contrast Adjusted", address);
+    waitKey(0);
+    destroyWindow("Contrast Adjusted");
 }
 
 // functions to perform tasks
@@ -86,12 +109,13 @@ Mat loadImage(){
     if (img.empty()) {
         cout << "Image file not found or couldn't be loaded." << endl;
     }
-
-    // Show the image inside a window with the specified name
-    imshow("Display window", img);
-
-    // Wait for a keystroke in the window
-    waitKey(0);
+    else{
+        // Show the image inside a window with the specified name
+        imshow("Display window", img);
+        // Wait for a keystroke in the window
+        waitKey(0);
+        destroyWindow("Display window");
+    }
 
     return img;
 }
@@ -103,7 +127,6 @@ void FilterImage(Mat& address){
 
     int choice;
     cin>> choice;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
 
     //Calling functions according to the choice made.
     switch (choice){
@@ -122,6 +145,10 @@ void FilterImage(Mat& address){
         }   
 }
 void colorImage(Mat& address){
+    if (address.empty()) {
+        cout << "No image loaded. Please load an image first." << endl;
+        return;
+    }
     cout<<"\n \n Choose one color adjusting option from the following to be applied:\n";
     cout<<"1. Colors\n";
     cout<<"2. Brightness\n";
@@ -129,7 +156,6 @@ void colorImage(Mat& address){
 
     int choice;
     cin>> choice;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
 
     //Calling functions according to the choice made.
     switch (choice){
@@ -148,6 +174,10 @@ void colorImage(Mat& address){
         }
 }
 void cropImage(Mat& address){
+    if (address.empty()) {
+        cout << "No image loaded. Please load an image first." << endl;
+        return;
+    }
     int startX, startY, width, height;
     cout << "Enter the starting X-coordinate: ";
     cin >> startX;
@@ -158,10 +188,22 @@ void cropImage(Mat& address){
     cout << "Enter the height of the ROI (Region of Interest): ";
     cin >> height;
 
+    if (startX < 0 || startY < 0 || width <= 0 || height <= 0 ||
+        startX + width > address.cols || startY + height > address.rows) {
+        cout << "Invalid ROI parameters." << endl;
+        return;
+    }
     // Crop the image
     address = address(Rect(startX, startY, width, height));
+    imshow("Cropped Image", address);
+    waitKey(0);
+    destroyWindow("Cropped Image");
 }
 void resizeImage(Mat& address){
+    if (address.empty()) {
+        cout << "No image loaded. Please load an image first." << endl;
+        return;
+    }
     int newWidth, newHeight;
     cout << "Enter the new width: ";
     cin >> newWidth;
@@ -170,8 +212,15 @@ void resizeImage(Mat& address){
 
     // Resize the image
     resize(address, address, Size(newWidth, newHeight), INTER_LINEAR);
+    imshow("Resized Image", address);
+    waitKey(0);
+    destroyWindow("Resized Image");
 }
 void saveImage(Mat& address){
+    if (address.empty()) {
+        cout << "No image loaded. Please load an image first." << endl;
+        return;
+    }
     cout<< "Enter the location where you want your edited image to be saved. \n example: path/to/save/MyImage.jpg\n ";
     string str;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -188,11 +237,12 @@ void saveImage(Mat& address){
     // Display the modified image
     imshow("Modified Image", address);
     waitKey(0);
-
+    destroyWindow("Modified Image");
     return ;
     
 }
 int main(){
+    Mat address;
     int perform=1;
     while(perform == 1){
         // Displaying use all the functions available.
@@ -209,9 +259,6 @@ int main(){
         // taking choice input from user.
         int choice;
         cin>> choice;
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-        Mat address;
 
         //Calling functions according to the choice made.
         switch (choice){
