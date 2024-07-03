@@ -8,16 +8,16 @@ This is a console-based image editor built using C++ and OpenCV. The program all
 
 ## Compiling the Code
 To compile the code, open a terminal or command prompt. Navigate to the directory containing the source files and run the following command:
-``` sh
+
 g++ -o ImageEditor main.cpp image_processing.cpp utilities.cpp `pkg-config --cflags --libs opencv4`
-```
+
 This will create an executable file named ImageEditor.
 
 ## Running the Program
 To run the program, use the following command:
-``` sh
+
 ./ImageEditor input_image.jpg
-```
+
 Replace input_image.jpg with the path to your image file.
 
 ## Using the Image Editor
@@ -26,10 +26,7 @@ Upon running the program, you will be presented with a main menu with the follow
 1. Load Image
 The program will prompt you to enter the path to an image file (e.g., path/to/your/image.jpg).  
 The loaded image will be displayed in the console.  
-``` arduino
-Enter the path to your image:
-path/to/your/image.jpg
-```
+
 2. Apply Filters to Image
 You can apply different filters to the loaded image. Choose from the following options:
 - Gray Scale: Converts the image to grayscale.
@@ -44,31 +41,14 @@ You can adjust the color properties of the image. Choose from the following opti
 - Enhance Contrast: Adjusts the contrast of the image. You will be prompted to enter an alpha value (1.0-3.0).
 
 4. Crop Image
-You can crop the image by specifying the region of interest (ROI). Enter the starting X and Y coordinates, width, and height of the ROI:
-
-``` mathematica
-Enter the starting X-coordinate: 50
-Enter the starting Y-coordinate: 50
-Enter the width of the ROI: 100
-Enter the height of the ROI: 100
-```
+You can crop the image by specifying the region of interest (ROI). Enter the starting X and Y coordinates, width, and height of the ROI.
 The cropped image will be displayed.
 
 5. Resize Image
-You can resize the image by specifying the new width and height:
-``` arduino
-Enter the new width: 200
-Enter the new height: 200
-```
-The resized image will be displayed.
+You can resize the image by specifying the new width and height. The resized image will be displayed.
 
 6. Save Image
-You can save the edited image by specifying the file path and name (e.g., path/to/save/MyImage.jpg):
-
-```vbnet
-Enter the location where you want your edited image to be saved:
-path/to/save/MyImage.jpg
-```
+You can save the edited image by specifying the file path and name (e.g., path/to/save/MyImage.jpg).
 The image will be saved, and the modified version will be displayed.
 
 7. EXIT
