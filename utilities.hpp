@@ -5,6 +5,7 @@
 
 #include <opencv2/opencv.hpp>
 
+// Function declarations for utility functions
 cv::Mat loadImage();
 void saveImage(const cv::Mat& address);
 void FilterImage(cv::Mat& address);

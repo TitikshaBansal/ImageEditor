@@ -4,6 +4,7 @@
 #define IMAGE_PROCESSING_HPP
 #include <opencv2/opencv.hpp>
 
+// Function declarations for image processing
 void Gray(cv::Mat& address);
 void Blur(cv::Mat& address);
 void Sharp(cv::Mat& address);

@@ -9,10 +9,11 @@ using namespace cv;
 using namespace std;
 
 int main() {
-    Mat address;
-    int perform = 1;
+    Mat address;        // Holds the image data
+    int perform = 1;    // Controls the main loop
 
     while (perform == 1) {
+        // Display menu options to the user
         cout << "\n\nChoose one option from the following:\n";
         cout << "1. Load Image\n";
         cout << "2. Apply filters to image\n";
@@ -23,29 +24,29 @@ int main() {
         cout << "7. EXIT\n";
 
         int choice;
-        cin >> choice;
+        cin >> choice;  // Read user choice
 
         switch (choice) {
             case 1:
-                address = loadImage();
+                address = loadImage();  // Load an image
                 break;
             case 2:
-                FilterImage(address);
+                FilterImage(address);   // Apply filters to the image
                 break;
             case 3:
-                colorImage(address);
+                colorImage(address);    // Adjust color of the image
                 break;
             case 4:
-                cropImage(address);
+                cropImage(address);     // Crop the image
                 break;
             case 5:
-                resizeImage(address);
+                resizeImage(address);   // Resize the image
                 break;
             case 6:
-                saveImage(address);
+                saveImage(address);     // Save the modified image
                 break;
             case 7:
-                perform = 0;
+                perform = 0;            // Exit the program
                 break;
             default:
                 cout << "Enter a valid choice.\n";

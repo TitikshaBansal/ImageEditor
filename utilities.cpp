@@ -8,6 +8,7 @@
 using namespace cv;
 using namespace std;
 
+// Function to load an image from file
 Mat loadImage() {
     string str;
     cout << "Enter the path to your image: ";
@@ -15,6 +16,7 @@ Mat loadImage() {
     getline(cin, str);
     Mat img = imread(str, IMREAD_COLOR);
 
+    // Check if the image was loaded successfully
     if (img.empty()) {
         cout << "Image file not found or couldn't be loaded." << endl;
     } else {
@@ -26,12 +28,14 @@ Mat loadImage() {
     return img;
 }
 
+// Function to save an image to file
 void saveImage(const Mat& address) {
     string str;
     cout << "Enter the location where you want your edited image to be saved (e.g., path/to/save/MyImage.jpg): ";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     getline(cin, str);
 
+    // Save the image and check if the operation was successful
     bool check = imwrite(str, address);
     if (check) {
         cout << "Successfully saved the modified image." << endl;
@@ -44,6 +48,7 @@ void saveImage(const Mat& address) {
     destroyWindow("Modified Image");
 }
 
+// Function to apply a filter to an image
 void FilterImage(Mat& address) {
     if (address.empty()) {
         cout << "No image loaded. Please load an image first." << endl;
@@ -74,6 +79,7 @@ void FilterImage(Mat& address) {
     }
 }
 
+// Function to adjust the color of an image
 void colorImage(Mat& address) {
     if (address.empty()) {
         cout << "No image loaded. Please load an image first." << endl;
@@ -104,6 +110,7 @@ void colorImage(Mat& address) {
     }
 }
 
+// Function to crop an image
 void cropImage(Mat& address) {
     if (address.empty()) {
         cout << "No image loaded. Please load an image first." << endl;
@@ -120,6 +127,7 @@ void cropImage(Mat& address) {
     cout << "Enter the height of the ROI (Region of Interest): ";
     cin >> height;
 
+    // Validate ROI parameters
     if (startX < 0 || startY < 0 || width <= 0 || height <= 0 ||
         startX + width > address.cols || startY + height > address.rows) {
         cout << "Invalid ROI parameters." << endl;
@@ -132,6 +140,7 @@ void cropImage(Mat& address) {
     destroyWindow("Cropped Image");
 }
 
+// Function to resize an image
 void resizeImage(Mat& address) {
     if (address.empty()) {
         cout << "No image loaded. Please load an image first." << endl;
@@ -144,6 +153,7 @@ void resizeImage(Mat& address) {
     cout << "Enter the new height: ";
     cin >> newHeight;
 
+    // Resize the image
     resize(address, address, Size(newWidth, newHeight), INTER_LINEAR);
     imshow("Resized Image", address);
     waitKey(0);
