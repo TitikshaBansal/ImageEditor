@@ -1,6 +1,6 @@
 name: Test
 
-on: 
+on:
   push:
     branches:
       - main
@@ -16,15 +16,17 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up environment
+    - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.x'
+        python-version: '3.x'  # Replace with your Python version
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install -r requirements.txt  # Install your project dependencies
+        pip install pytest  # Install pytest
 
     - name: Run tests
-      run: pytest
+      run: |
+        pytest  # Run pytest tests
