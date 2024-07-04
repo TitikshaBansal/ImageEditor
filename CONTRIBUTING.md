@@ -44,7 +44,7 @@ Now, you can start making changes to the project. Whether it's fixing a bug, add
 Once you are satisfied with your changes, commit them to your branch. Make sure your commit messages are descriptive.
 ```sh
 git add .
-git commit -m "Add detailed description of your changes"
+git commit -m "Add a detailed description of your changes"
 ```
 
 ### 6. Push to Your Fork
@@ -82,7 +82,7 @@ We welcome suggestions to make ImageEditor better! To suggest an enhancement:
 
 ## Your First Code Contribution
 
-If you're new to contributing to open source projects, here are some ways you can start contributing to ImageEditor:
+If you're new to contributing to open-source projects, here are some ways you can start contributing to ImageEditor:
 
 - Fixing typos or improving documentation.
 - Addressing open issues.
