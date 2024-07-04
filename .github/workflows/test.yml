@@ -16,18 +16,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.8'  # or '3.9'
-
-      - name: Install dependencies
+      - name: Set up CMake
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt  # Install your project dependencies
-          pip install pytest  # Ensure pytest is installed
+          sudo apt-get update
+          sudo apt-get install -y cmake
+
+      - name: Install OpenCV (if needed)
+        run: |
+          # Install OpenCV dependencies and OpenCV itself if required
+          # Example commands:
+          sudo apt-get install -y libopencv-dev
+
+      - name: Build C++ project
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          make
 
       - name: Run tests
         run: |
-          pytest tests  # Run pytest in the tests directory
-
+          cd build
+          # Assuming you have test cases using Google Test
+          ctest --output-on-failure  # Runs all tests using CTest
