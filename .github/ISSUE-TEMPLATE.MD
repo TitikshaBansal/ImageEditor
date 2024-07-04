@@ -38,7 +38,7 @@ Please complete the following information:
 
 Add any other context about the problem here.
 
----
+
 
 ---
 name: Feature request
@@ -65,7 +65,7 @@ Describe alternatives you've considered. A clear and concise description of any 
 
 Add any other context or screenshots about the feature request here.
 
----
+
 
 ---
 name: Question
@@ -84,7 +84,7 @@ Clearly state your question here.
 
 Add any other context or screenshots related to your question here.
 
----
+
 
 ---
 name: Documentation
@@ -107,4 +107,4 @@ Provide the location in the documentation where the improvement is needed (e.g.,
 
 Add any other context or screenshots related to the documentation issue here.
 
----
+
