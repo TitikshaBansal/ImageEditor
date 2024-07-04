@@ -1,24 +1,30 @@
 name: Lint
 
-on: [push, pull_request]
+on:
+  pull_request:
+    branches:
+      - main  # Adjust branch name as needed
 
 jobs:
   lint:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.8'
+      - name: Set up Clang-Tidy
+        run: sudo apt-get install clang-tidy
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install flake8
+      - name: Run Clang-Tidy
+        run: |
+          # Replace with appropriate clang-tidy commands
+          clang-tidy src/**/*.cpp -- -Iinclude
 
-    - name: Run flake8
-      run: flake8 .
+      - name: Set up CPPCheck
+        run: sudo apt-get install cppcheck
+
+      - name: Run CPPCheck
+        run: |
+          # Replace with appropriate cppcheck commands
+          cppcheck --enable=all --error-exitcode=1 src
