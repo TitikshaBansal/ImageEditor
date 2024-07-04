@@ -7,7 +7,7 @@
 The **Console-Based Image Editor** is a C++ project that allows users to manipulate images via the command-line interface. It leverages the powerful OpenCV library to provide essential image editing functionalities such as applying filters, adjusting colors, cropping, resizing, and saving images, making it suitable for various applications and users looking for a lightweight, console-driven editing solution. Whether you're a beginner or an experienced developer, this project serves as a great learning resource for image processing and console-based applications.
 
 ## Features
-1. **Image Loading and Display**: Load an image from disk and display it directly in the console.
+1. **Image Loading and Display**: Load an image from a disk and display it directly in the console.
 2. **Basic Editing Operations**:
    - **Grayscale Conversion**: Convert the loaded image to grayscale.
    - **Blur**: Apply Gaussian blur to the image.
@@ -25,7 +25,7 @@ The **Console-Based Image Editor** is a C++ project that allows users to manipul
 3. **Efficient Image Handling**: Utilizes OpenCV’s robust image processing capabilities to ensure high-quality edits and fast performance.
 
 ## Technologies Used
-1. **C++**: Programming language for core implementation.
+1. **C++**: A programming language for core implementation.
 2. **OpenCV**: Library for image processing tasks, providing a wide range of functions for manipulating images.
 3. **Git**: Version control system for collaborative development and project management.
 
