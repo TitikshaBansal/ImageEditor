@@ -1,5 +1,5 @@
 [run]
-source = .  # Set source to current directory for coverage analysis
+source = .
 
 [report]
-show_missing = True  # Show missing lines in coverage report
+show_missing = True
